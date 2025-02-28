@@ -73,7 +73,7 @@
 
 <div class="container-fluid m-5 contenedor">
 
-    <form class="formulario" action="/libro/registro" method="POST">
+    <form class="formulario" action="/libro/registrarse" method="POST">
 
         <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
             <div class="card-body">
@@ -90,7 +90,6 @@
 
         <div class="form-group my-3">
             <label class="mb-2">Cargar Libro</label>
-            <input type="number" class="form-control" name="isbn" placeholder="ISBN">
         </div>
         <div class="form-group my-3">
             <input type="text" class="form-control" name="titulo" placeholder="Titulo del Libro">
@@ -105,14 +104,13 @@
             <select name="idAutor">
 
                 <option>Seleccionar Autor</option>
-
-
+                <option th:each="autor: ${autores}" th:text="${autor.getNombre()}" th:value="${autor.getId()}"></option>
             </select>
         </div>
         <div class="form-group my-3">
             <select name="idEditorial">
                 <option>Seleccionar Editorial</option>
-
+                <option th:each="editorial: ${editoriales}" th:text="${editorial.getNombre()}" th:value="${editorial.getId()}"></option>
             </select>
         </div>
 

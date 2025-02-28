@@ -1,24 +1,23 @@
 package com.egg.biblioteca.Entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Autor {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @GenericGenerator(name = "UUID", strategy = "uuid2")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String nombre;
 
     public Autor() {
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

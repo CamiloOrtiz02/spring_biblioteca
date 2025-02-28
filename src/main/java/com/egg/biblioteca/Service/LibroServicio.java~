@@ -24,7 +24,7 @@ public class LibroServicio {
 
     public void crearLibro(String titulo, int ejemplares, Long idAutor, Long idEditorial) {
         // Validaciones básicas
-        if (titulo == null || titulo.trim().isEmpty() || ejemplares <= 0) {
+        if (isbn == null || titulo == null || titulo.trim().isEmpty() || ejemplares <= 0) {
             throw new IllegalArgumentException("Los datos del libro no son válidos.");
         }
 
