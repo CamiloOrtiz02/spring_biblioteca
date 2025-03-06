@@ -22,7 +22,6 @@ public class AutorControlador {
     public String registrar() {
         return "autor_form";
     }
-    //! Listar los Autores
 
     @PostMapping("/registrarse")
     public String registrarAutor(@RequestParam(required = true) String nombre) {

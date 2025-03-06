@@ -7,27 +7,21 @@ import java.util.Date;
 @Entity
 public class Libro {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long isbn;
-
-    @Column(unique = true)
     private String titulo;
     private int ejemplares;
 
     @Temporal(TemporalType.DATE)
     private Date alta;
 
-    // Relaciones con otras Entidades
-    @ManyToOne // Muchos libros pueden tener una editorial
+    // Entidades relacionadas
+    @ManyToOne
     @JoinColumn(name = "editorial_id")
     private Editorial editorial;
 
     @ManyToOne
     @JoinColumn(name = "autor_id")
     private Autor autor;
-
-    public Libro() {
-    }
 
     public Long getIsbn() {
         return isbn;
