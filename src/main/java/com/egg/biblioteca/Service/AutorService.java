@@ -6,6 +6,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AutorService {
     @Autowired
@@ -20,5 +22,13 @@ public class AutorService {
         Autor autor = new Autor();
         autor.setNombre(nombre);
         ar.save(autor);
+    }
+
+    public Autor buscarAutorPorId(String id) {
+        return ar.findById(id).orElse(null);
+    }
+
+    public List<Autor> listarAutores() {
+        return ar.findAll();
     }
 }
