@@ -13,7 +13,7 @@ public class EditorialController {
     @Autowired
     private EditorialService es;
 
-    @GetMapping("/registrar")
+    @GetMapping("/registrar") // /editorial/registrar
     public String mostrarFormEditorial() {
         return "editorial_form.html";
     }

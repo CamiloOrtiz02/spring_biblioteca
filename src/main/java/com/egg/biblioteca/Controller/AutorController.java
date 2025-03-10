@@ -13,12 +13,12 @@ public class AutorController {
     @Autowired
     private AutorService as;
 
-    @GetMapping("/registrar")
+    @GetMapping("/registrar") // /autor/registrar
     public String mostrarFormAutor() {
         return "autor_form.html";
     }
 
-    @GetMapping("/lista")
+    @GetMapping("/lista") // /autor/lista
     public String listarAutores(Model model) {
         model.addAttribute("autores", as.listarAutores());
         return "autor_list.html";

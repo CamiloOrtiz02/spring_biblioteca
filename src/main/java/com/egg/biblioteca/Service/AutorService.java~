@@ -12,7 +12,7 @@ import java.util.List;
 public class AutorService {
     @Autowired
     private AutorRepository ar;
-
+    
     @Transactional
     public void crearAutor(String nombre) {
         if (nombre == null || nombre.isEmpty()) {
@@ -26,7 +26,7 @@ public class AutorService {
 
     @Transactional
     public void modificarAutor(String id, String nombre) {
-        Autor autor = ar.findById(id).orElse(null);
+        Autor autor = ar.getOne(id);
         if (autor != null) {
             autor.setNombre(nombre);
             ar.save(autor);
