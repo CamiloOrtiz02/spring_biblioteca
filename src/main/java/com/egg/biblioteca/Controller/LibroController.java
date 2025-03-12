@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class LibroController {
 
         return "libro_form.html";
     }
+
     @GetMapping("/lista")
     public String listarLibros(Model model) {
         model.addAttribute("libros", ls.listarLibros());
@@ -64,15 +66,16 @@ public class LibroController {
     @PostMapping("/registro")
     public String registrarLibro(@RequestParam(required = false) Long isbn, @RequestParam String titulo,
                                  @RequestParam(required = false) Integer ejemplares, @RequestParam String idAutor,
-                                 @RequestParam String idEditorial, Model model) {
+                                 @RequestParam String idEditorial, RedirectAttributes ra) {
 
+        // RedirectAttributes permite redireccionar y mandar informacion al HTML mediante la URL
         try {
             ls.crearLibro(isbn, titulo, ejemplares, idAutor, idEditorial);
+            ra.addFlashAttribute("exito", "Libro creado con éxito");
         } catch (Exception e) {
-            model.addAttribute("error", "Error al crear el libro");
-            return "redirect:/libro/registrar";
+            ra.addFlashAttribute("error", "Error al crear el libro");
         }
-        return "libro_form.html";
+        return "redirect:/libro/registrar";
     }
 
     @PostMapping("/modificar/{isbn}")

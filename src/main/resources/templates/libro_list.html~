@@ -49,8 +49,8 @@
         </tbody>
     </table>
 
-    <div th:replace="~{fragments/errormessage :: errormessage}"></div>
-    <div th:replace="~{fragments/successmessage :: successmessage}"></div>
+    <div th:replace="~{fragments/errormessage :: errormessage}" th:if="${error != null}"></div>
+    <div th:replace="~{fragments/successmessage :: successmessage}" th:if="${exito}!=null"></div>
 
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
