@@ -28,8 +28,10 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable()) // Deshabilita CSRF si es necesario
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/registrar", "/registro").permitAll() // 🔥 Permitir el acceso a /registrar
-                        .requestMatchers("/css/", "/js/", "/img/", "/**").permitAll() // 🔥 Permitir archivos estáticos
+                        .requestMatchers("/admin/**").hasRole("ADMIN") // 🔥 Permitir el acceso a /admin/** solo para usuarios con el rol ADMIN
+                        .requestMatchers("/registrar", "/login").permitAll() // 🔥 Permitir el acceso a /registrar y /login sin autenticación
+                        .requestMatchers("/css/**", "/js/**", "/img/**").permitAll() // 🔥 Permitir archivos estáticos sin autenticación
+                        .anyRequest().authenticated() // 🔥 Cualquier otra peticion debe ser autenticada
                 )
                 .formLogin(form -> form
                         .loginPage("/login") // 🔥 Configurar la URL de inicio de sesión

@@ -1,6 +1,7 @@
 package com.egg.biblioteca.Service;
 
 import com.egg.biblioteca.Repository.UsuarioRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.egg.biblioteca.Entity.Usuario;
 import com.egg.biblioteca.enums.Rol;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,14 +52,25 @@ public class UsuarioServicio implements UserDetailsService {
         }
     }
 
+    /*
+        Punto de entrada para la autenticación de usuarios
+        Sin esta funcion Spring Security no sabe como cargar el usuario
+     */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuario usuario = ur.findByEmail(email);
         if (usuario != null) {
-            List<GrantedAuthority> grants = new ArrayList<>();
-            GrantedAuthority ga = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
-            grants.add(ga);
-            return new User(usuario.getEmail(), usuario.getPassword(), grants);
+            // Asignar los permisos
+            List<GrantedAuthority> grants = new ArrayList<>(); // Lista de permisos
+            GrantedAuthority ga = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString()); // Permiso ROLE_USER || ROLE_ADMIN
+            grants.add(ga); // Agregar permiso
+
+            // Guardar el usuario en la sesión
+            ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes(); // Obtener la petición actual
+            HttpSession session = attr.getRequest().getSession(); // Obtener la sesión
+            session.setAttribute("usuariosession", usuario); // Guardar el usuario en la sesión
+
+            return new User(usuario.getEmail(), usuario.getPassword(), grants); // Aplicar los permiso del usuario
         }
         throw new UsernameNotFoundException("El usuario no existe.");
     }
