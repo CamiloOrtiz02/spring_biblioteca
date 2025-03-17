@@ -1,0 +1,46 @@
+package com.egg.biblioteca.Service;
+
+import com.egg.biblioteca.Entity.Imagen;
+import com.egg.biblioteca.Repository.ImagenRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ImagenService {
+    @Autowired
+    private ImagenRepository ir;
+
+    @Transactional
+    public void guardarImagen(String nombre, byte[] imagen) {
+        // Validar campos
+        if (imagen == null || imagen.length == 0) {
+            throw new IllegalArgumentException("La imagen no puede estar vacía.");
+        }
+        if (nombre == null || nombre.isEmpty()) {
+            throw new IllegalArgumentException("El nombre de la imagen no puede estar vacío.");
+        }
+
+        // Guardar imagen
+        Imagen img = new Imagen();
+        img.setNombre(nombre);
+        img.setContenido(imagen);
+    }
+
+    @Transactional
+    public void actualizarImagen(String id, String nombre, byte[] imagen) {
+        // Validar campos
+        if (imagen == null || imagen.length == 0) {
+            throw new IllegalArgumentException("La imagen no puede estar vacía.");
+        }
+        if (nombre == null || nombre.isEmpty()) {
+            throw new IllegalArgumentException("El nombre de la imagen no puede estar vacío.");
+        }
+
+        // Buscar imagen
+    }
+
+    public Imagen getOne(String id) {
+        return ir.getReferenceById(id);
+    }
+}

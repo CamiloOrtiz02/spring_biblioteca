@@ -1,8 +1,6 @@
 package com.egg.biblioteca.Service;
 
-import com.egg.biblioteca.Entity.Usuario;
 import com.egg.biblioteca.Repository.UsuarioRepository;
-import com.egg.biblioteca.enums.Rol;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.egg.biblioteca.Entity.Usuario;
+import com.egg.biblioteca.enums.Rol;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 

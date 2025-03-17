@@ -1,0 +1,9 @@
+package com.egg.biblioteca.Repository;
+
+import com.egg.biblioteca.Entity.Imagen;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ImagenRepository extends JpaRepository<Imagen, String> {
+}
